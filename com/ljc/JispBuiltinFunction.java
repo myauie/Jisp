@@ -1101,6 +1101,9 @@ class JispBuiltinFunction {
     static Object ZEROP(ArrayList items, JispInterp context) {
         // returns true if argument is zero
         items.remove(0); // 0th parm == function name
+        ArrayList vals = (ArrayList) items.stream()
+                .map(context::eval)
+                .collect(toCollection(ArrayList::new));
         if (items.size() != 1) {
             System.err.println("ERROR: incorrect number of parameters, expected 1 got " +
                     Integer.toString(items.size()));
